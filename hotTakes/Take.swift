@@ -19,4 +19,8 @@ class Take {
         self.hotVotes = hotVotes
         self.coldVotes = coldVotes
     }
+    
+    func getPercentage() -> Float {
+        return Float(hotVotes/(hotVotes + coldVotes))
+    }
 }

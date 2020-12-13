@@ -136,7 +136,7 @@ def delete_user(user_id):
     db.session.commit()
     return success_response(user.serialize())
 
-@app.route("/api/users/<int:user_id>/profile_picture", methods=["POST"])
+@app.route("/api/users/<int:user_id>/profile_picture/", methods=["POST"])
 def upload_picture(user_id) :
     #TODO verify that the user is the one updating the profile picture
     body = json.loads(request.data)

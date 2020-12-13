@@ -135,9 +135,10 @@ class User(db.Model):
     def verify_update_token(self, update_token):
         return update_token == self.update_token
 
+    # Serialize functions
     def serialize(self):
         profile_picture = None
-        for asset in session.query(Asset).order_by(self.profile_picture_id) :
+        for asset in db.session.query(Asset).order_by(self.profile_picture_id) :
             profile_picture = asset.serialize().get("url")
         return {
             'id': self.id,
@@ -147,7 +148,7 @@ class User(db.Model):
 
     def serialize_with_takes(self):
         profile_picture = None
-        for asset in session.query(Asset).order_by(self.profile_picture_id):
+        for asset in db.session.query(Asset).order_by(self.profile_picture_id):
             profile_picture = asset.serialize().get("url")
         return {
             'id': self.id,
@@ -158,7 +159,7 @@ class User(db.Model):
 
     def serialize_with_voted(self):
         profile_picture = None
-        for asset in session.query(Asset).order_by(self.profile_picture_id):
+        for asset in db.session.query(Asset).order_by(self.profile_picture_id):
             profile_picture = asset.serialize().get("url")
         return {
             'id': self.id,
@@ -196,6 +197,8 @@ class Take(db.Model):
             'downvotes': [ d.serialize() for d in self.votes if d.value == False ],
             'hot_count': sum(v.value == True for v in self.votes),
             'cold_count': sum(v.value == False for v in self.votes),
+            'hot_portion': int(round((sum(v.value == True for v in self.votes) / len(self.votes)), 2) * 100) if self.votes else 0,
+            'cold_portion': int(round((sum(v.value == False for v in self.votes) / len(self.votes)), 2) * 100) if self.votes else 0,
             # 'user': self.user.serialize()
         }
 

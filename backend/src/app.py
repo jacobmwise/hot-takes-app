@@ -1,7 +1,7 @@
 import json
 import os
 
-from db import db, User, Take, Vote
+from db import db, User, Take, Vote, Asset
 from flask import Flask, request
 import users_dao
 
@@ -135,6 +135,18 @@ def delete_user(user_id):
     db.session.delete(user)
     db.session.commit()
     return success_response(user.serialize())
+
+@app.route("/api/users/<int:user_id>/profile_picture", methods=["POST"])
+def upload_picture(user_id) :
+    #TODO verify that the user is the one updating the profile picture
+    body = json.loads(request.data)
+    image_data = body.get("image_data")
+    if (image_data is None) :
+        return failure_response("No base64 image")
+    asset = Asset(image_data = image_data)
+    db.session.add(asset)
+    db.session.commit()
+    return success_response(asset.serialize())
 
 
 # Take Routes

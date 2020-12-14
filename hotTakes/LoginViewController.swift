@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
     var loginButton: UIButton!
     var signupButton: UIButton!
     
-    var feedViewController : FeedViewController!
+    var containerViewController : ContainerViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,13 +147,12 @@ class LoginViewController: UIViewController {
         
         setupConstraints()
         
-        feedViewController = FeedViewController()
-        
+        containerViewController = ContainerViewController()
     }
 
     func setupConstraints(){
         NSLayoutConstraint.activate([
-            titleFlame.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
+            titleFlame.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             titleFlame.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             titleFlame.heightAnchor.constraint(equalToConstant: 50),
             titleFlame.widthAnchor.constraint(equalToConstant: 50)
@@ -235,12 +234,12 @@ class LoginViewController: UIViewController {
     
     @objc func loginButtonTapped(){
         //INSERT LOGIN CODE
-        navigationController?.pushViewController(feedViewController, animated: true)
+        navigationController?.pushViewController(containerViewController, animated: true)
     }
     
     @objc func signupButtonTapped(){
         //INSERT LOGIN CODE
-        navigationController?.pushViewController(feedViewController, animated: true)
+        navigationController?.pushViewController(containerViewController, animated: true)
     }
 
 }

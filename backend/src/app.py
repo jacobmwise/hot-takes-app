@@ -193,6 +193,9 @@ def vote(user_id, take_id):
         return failure_response("Take not found")
     if user_id == take.user_id:
         return failure_response("User cannot vote on their own take")
+    for vote in Vote.query.filter_by(user_id=user_id).all():
+        if vote.take_id == take_id:
+            return failure_response("User already voted")
     body = json.loads(request.data)
     value = body.get("value")
     if value is None:

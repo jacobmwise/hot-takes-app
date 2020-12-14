@@ -174,15 +174,16 @@ def create_user_take(user_id):
     db.session.commit()
     return success_response(new_take.serialize())
 
-@app.route("/api/takes/")
-def get_takes():
+@app.route("/api/<int: user_id>/takes/")
+def get_takes(user_id):
     length = db.session.query(func.count(Take.id)).scalar()
-    if(length < 10) :
-        takes = Take.query.all()
+    takes = []
+    if(length < 20) :
+        takes = Take.query.filter(Take.user_id!= user_id).all()
     else :
-        randoms = random.sample(range(length), 10)
+        randoms = random.sample(range(length), 20)
         for r in randoms :
-            takes = Take.query.filter_by(id=r).first()
+            takes.append(Take.query.filter(Take.id==r, Take.user_id!= user_id).first())
     if (not takes) :
         return failure_response("No Takes found!")
     return success_response( [ t.serialize_with_votes() for t in takes ] )

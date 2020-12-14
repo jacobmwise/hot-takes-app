@@ -138,7 +138,7 @@ class User(db.Model):
     # Serialize functions
     def serialize(self):
         profile_picture = None
-        for asset in db.session.query(Asset).order_by(self.profile_picture_id) :
+        for asset in db.session.query(Asset).order_by(self.profile_picture_id):
             profile_picture = asset.serialize().get("url")
         return {
             'id': self.id,
@@ -164,7 +164,7 @@ class User(db.Model):
         return {
             'id': self.id,
             'username': self.username,
-            'voted': [ v.serialize() for v in self.voted ],
+            'voted': [ v.serialize_voted() for v in self.voted ],
             'profile_picture': profile_picture
         }
 
@@ -193,8 +193,8 @@ class Take(db.Model):
         return {
             'id': self.id,
             'text': self.text,
-            'upvotes': [ u.serialize() for u in self.votes if u.value == True ],
-            'downvotes': [ d.serialize() for d in self.votes if d.value == False ],
+            # 'upvotes': [ u.serialize() for u in self.votes if u.value == True ],
+            # 'downvotes': [ d.serialize() for d in self.votes if d.value == False ],
             'hot_count': sum(v.value == True for v in self.votes),
             'cold_count': sum(v.value == False for v in self.votes),
             'hot_portion': int(round((sum(v.value == True for v in self.votes) / len(self.votes)), 2) * 100) if self.votes else 0,
@@ -212,10 +212,26 @@ class Vote(db.Model):
 
     def __init__(self, **kwargs):
         self.value = kwargs.get('value', '')
+        self.take = kwargs.get('take', '')
 
     def serialize(self):
+        # take = None
+        # take = db.session.query(Take).filter_by(id=self.take_id).first()
+
         return {
             'id': self.id,
             'value': self.value,
+            # 'take': take.serialize_with_votes,
         }
+
+    def serialize_voted(self):
+        take = db.session.query(Take).filter_by(id=self.take_id).first()
+        return take.serialize_with_votes()
+
+    # def serialize_voted_take(self):
+    #     take = None
+    #     for asset in db.session.query(Take).order_by(self.profile_picture_id) :
+    #         profile_picture = asset.serialize().get("url")
+
+    #     return self.take.serialize_with_votes()
 

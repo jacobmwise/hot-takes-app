@@ -33,6 +33,8 @@ class LoginViewController: UIViewController {
     var loginButton: UIButton!
     var signupButton: UIButton!
     
+    var warningLabel: UILabel!
+    
     var containerViewController : ContainerViewController!
 
     override func viewDidLoad() {
@@ -143,6 +145,16 @@ class LoginViewController: UIViewController {
         signupButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
         view.addSubview(signupButton)
         
+        warningLabel = UILabel()
+        warningLabel.text = "Fill in your password and username before continuing."
+        warningLabel.font = UIFont(name: "Roboto-Bold", size: 15)
+        warningLabel.textColor = UIColor(red: 0.925, green: 0.302, blue: 0.341, alpha: 1)
+        warningLabel.translatesAutoresizingMaskIntoConstraints = false
+        warningLabel.numberOfLines = 0
+        warningLabel.lineBreakMode = .byWordWrapping
+        warningLabel.isHidden = true
+        view.addSubview(warningLabel)
+        
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         setupConstraints()
@@ -230,16 +242,59 @@ class LoginViewController: UIViewController {
             signupButton.topAnchor.constraint(equalTo: passwordBox.bottomAnchor, constant: 20),
             signupButton.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
+        NSLayoutConstraint.activate([
+            warningLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            warningLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            warningLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20)
+        ])
     }
     
     @objc func loginButtonTapped(){
-        //INSERT LOGIN CODE
-        navigationController?.pushViewController(containerViewController, animated: true)
+        if usernameTextField.text != "" && passwordTextField.text != "" {
+            self.showWarning(message: "Loading...")
+            NetworkManager.loginUser(username: usernameTextField.text!, password: passwordTextField.text!) { loginResponse in
+                if loginResponse.success ?? false == true {
+                    CurrentUserData.session_token = loginResponse.session_token
+                    CurrentUserData.session_expiration = loginResponse.session_expiration
+                    CurrentUserData.update_token = loginResponse.update_token
+                    self.showWarning(message: "Welcome")
+                    self.navigationController?.pushViewController(self.containerViewController, animated: true)
+                }else if loginResponse.success ?? true == false {
+                    self.showWarning(message: loginResponse.error!)
+                }else{
+                    self.showWarning(message: "Something went wrong. Try again.")
+                }
+            }
+        }else{
+            self.showWarning(message: "Fill in your password and username before continuing.")
+        }
     }
     
     @objc func signupButtonTapped(){
-        //INSERT LOGIN CODE
-        navigationController?.pushViewController(containerViewController, animated: true)
+        if usernameTextField.text != "" && passwordTextField.text != "" {
+            self.showWarning(message: "Loading...")
+            NetworkManager.signUpUser(username: usernameTextField.text!, password: passwordTextField.text!) { signupResponse in
+                if signupResponse.success ?? false == true {
+                    CurrentUserData.session_token = signupResponse.session_token
+                    CurrentUserData.session_expiration = signupResponse.session_expiration
+                    CurrentUserData.update_token = signupResponse.update_token
+                    self.showWarning(message: "Welcome")
+                    self.navigationController?.pushViewController(self.containerViewController, animated: true)
+                }else if signupResponse.success ?? true == false {
+                    self.showWarning(message: signupResponse.error!)
+                }else{
+                    self.showWarning(message: "Something went wrong. Try again.")
+                }
+            }
+        }else{
+            self.showWarning(message: "Fill in your password and username before continuing.")
+        }
+    }
+    
+    func showWarning(message: String){
+        warningLabel.isHidden = false
+        warningLabel.text = message
     }
 
 }

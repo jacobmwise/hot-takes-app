@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 class NetworkManager {
-    private static let host = "/api"
+    private static let host = "https://hot-takes-app.herokuapp.com/api"
     
 //    Sign Up
 //    /api/signup/ [POST]
@@ -24,16 +24,25 @@ class NetworkManager {
         ]
         let endpoint = "\(host)/signup/"
         AF.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
+            print(response.result)
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let response = try? jsonDecoder.decode(AuthResponse.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<AuthResponse>.self, from: data) {
                     // Instructions: Use completion to handle response
-                    completion(response)
+                    var res = decode.data
+                    res.success = true
+                    completion(res)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+                let jsonDecoder = JSONDecoder()
+                if let decode = try? jsonDecoder.decode(ErrorResponse.self, from: response.data!) {
+                    // Instructions: Use completion to handle response
+                    let err = decode.error
+                    let res = AuthResponse(session_token: "", session_expiration: "", update_token: "", success: false, error: err)
+                    completion(res)
+                }
             }
         }
     }
@@ -51,16 +60,25 @@ class NetworkManager {
         ]
         let endpoint = "\(host)/login/"
         AF.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
+            print(response.result)
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let response = try? jsonDecoder.decode(AuthResponse.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<AuthResponse>.self, from: data) {
                     // Instructions: Use completion to handle response
-                    completion(response)
+                    var res = decode.data
+                    res.success = true
+                    completion(res)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+                let jsonDecoder = JSONDecoder()
+                if let decode = try? jsonDecoder.decode(ErrorResponse.self, from: response.data!) {
+                    // Instructions: Use completion to handle response
+                    let err = decode.error
+                    let res = AuthResponse(session_token: "", session_expiration: "", update_token: "", success: false, error: err)
+                    completion(res)
+                }
             }
         }
     }
@@ -79,13 +97,20 @@ class NetworkManager {
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let response = try? jsonDecoder.decode(AuthResponse.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<AuthResponse>.self, from: data) {
                     // Instructions: Use completion to handle response
-                    completion(response)
+                    let res = decode.data
+                    completion(res)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+                let jsonDecoder = JSONDecoder()
+                if let decode = try? jsonDecoder.decode(ErrorResponse.self, from: response.data!) {
+                    // Instructions: Use completion to handle response
+                    let err = decode.error
+                    let res = AuthResponse(session_token: "", session_expiration: "", update_token: "", success: false, error: err)
+                    completion(res)
+                }
             }
         }
     }
@@ -133,10 +158,10 @@ class NetworkManager {
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let response = try? jsonDecoder.decode(UploadPictureResponse.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<UploadPictureResponse>.self, from: data) {
                     // Instructions: Use completion to handle response
-                    completion(response)
+                    let res = decode.data
+                    completion(res)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -159,10 +184,10 @@ class NetworkManager {
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let response = try? jsonDecoder.decode(CreateTakeResponse.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<CreateTakeResponse>.self, from: data) {
                     // Instructions: Use completion to handle response
-                    completion(response)
+                    let res = decode.data
+                    completion(res)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -183,10 +208,10 @@ class NetworkManager {
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let response = try? jsonDecoder.decode(GetUserTakesResponse.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<GetUserTakesResponse>.self, from: data) {
                     // Instructions: Use completion to handle response
-                    completion(response)
+                    let res = decode.data
+                    completion(res)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -208,10 +233,10 @@ class NetworkManager {
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let response = try? jsonDecoder.decode(GetUserTakesResponse.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<GetUserTakesResponse>.self, from: data) {
                     // Instructions: Use completion to handle response
-                    completion(response)
+                    let res = decode.data
+                    completion(res)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -234,10 +259,10 @@ class NetworkManager {
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let response = try? jsonDecoder.decode(VoteResponse.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<VoteResponse>.self, from: data) {
                     // Instructions: Use completion to handle response
-                    completion(response)
+                    let res = decode.data
+                    completion(res)
                 }
             case .failure(let error):
                 print(error.localizedDescription)

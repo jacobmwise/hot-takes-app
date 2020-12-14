@@ -23,6 +23,7 @@
 		FF5D1FE6258788E600848B5A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5D1FE5258788E600848B5A /* NetworkManager.swift */; };
 		FF5D1FEE25878C5400848B5A /* NetworkResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5D1FED25878C5400848B5A /* NetworkResponses.swift */; };
 		FF7400092587249C004D1667 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF7400082587249C004D1667 /* Roboto-Bold.ttf */; };
+		FFAFD11E2588060800D98CE1 /* CurrentUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFD11D2588060800D98CE1 /* CurrentUserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		FF5D1FE5258788E600848B5A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FF5D1FED25878C5400848B5A /* NetworkResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponses.swift; sourceTree = "<group>"; };
 		FF7400082587249C004D1667 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		FFAFD11D2588060800D98CE1 /* CurrentUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				FF3A3C19257D8F610039643F /* AppDelegate.swift */,
 				FF3A3C1B257D8F610039643F /* SceneDelegate.swift */,
 				FF3A3C1D257D8F610039643F /* LoginViewController.swift */,
+				FFAFD11D2588060800D98CE1 /* CurrentUserData.swift */,
 				FF5D1FDE258766B600848B5A /* ProfileViewController.swift */,
 				FF5D1FDA258765DC00848B5A /* ContainerViewController.swift */,
 				FF5D1FE1258768A800848B5A /* HeaderViewController.swift */,
@@ -245,6 +248,7 @@
 				FF5D1FDB258765DC00848B5A /* ContainerViewController.swift in Sources */,
 				FF5D1FE6258788E600848B5A /* NetworkManager.swift in Sources */,
 				FF3A3C1A257D8F610039643F /* AppDelegate.swift in Sources */,
+				FFAFD11E2588060800D98CE1 /* CurrentUserData.swift in Sources */,
 				FF40A00B257DADD700ED2DE3 /* NewPostViewController.swift in Sources */,
 				FF40A002257D99E100ED2DE3 /* FeedViewController.swift in Sources */,
 				FF5D1FDF258766B600848B5A /* ProfileViewController.swift in Sources */,

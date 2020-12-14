@@ -176,14 +176,14 @@ def create_user_take(user_id):
 
 @app.route("/api/takes/")
 def get_takes():
-    length = Take.query(func.count(Take.id)).scalar()
+    length = db.session.query(func.count(Take.id)).scalar()
     if(length < 10) :
         takes = Take.query.all()
     else :
         randoms = random.sample(range(length), 10)
         for r in randoms :
             takes = Take.query.filter_by(id=r).first()
-    if (takes is None) :
+    if (not takes) :
         return failure_response("No Takes found!")
     return success_response( [ t.serialize_with_votes() for t in takes ] )
 

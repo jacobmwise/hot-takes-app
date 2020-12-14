@@ -187,8 +187,14 @@ def get_takes(user_id):
         randoms = random.sample(range(length), 20)
         for r in randoms :
             takes.append(Take.query.filter(Take.id==r, Take.user_id!= user_id).first())
-    if (not takes) :
-        return failure_response("No Takes found!")
+    # if (not takes) :
+    #     return failure_response("No Takes found!")
+    for t in takes:
+        for v in t.votes:
+            if v.user_id == user_id:
+                takes.remove(t)
+    if not takes:
+        return failure_response("No takes found!")
     return success_response( [ t.serialize_with_votes() for t in takes ] )
 
 @app.route("/api/users/<int:user_id>/takes/")

@@ -1,22 +1,13 @@
 //
-//  FeedViewController.swift
+//  ProfileViewController.swift
 //  hotTakes
 //
-//  Created by Michael Crum on 12/6/20.
+//  Created by Michael Crum on 12/14/20.
 //
-
-/**
- Feed view
- Todo:
-    1. Add new post button (should present a NewPostViewController as a detail view)
-    2. Pull data from backend
-    3. Customize the table cells (see TakeTableViewCell for todo)
-    4. Make new post page funcitonal (see NewPostViewController for todo)
- */
 
 import UIKit
 
-class FeedViewController: UIViewController {
+class ProfileViewController: UIViewController {
     var titleLabel: UILabel!
     var bodyLabel: UILabel!
 
@@ -26,14 +17,14 @@ class FeedViewController: UIViewController {
         view.backgroundColor = .black
         
         titleLabel = UILabel()
-        titleLabel.text = "Feed page"
+        titleLabel.text = "Profile Page"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 32)
         titleLabel.textColor = .white
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         
         bodyLabel = UILabel()
-        bodyLabel.text = "Complete feed page in this view controller"
+        bodyLabel.text = "Complete profile page in this view controller"
         bodyLabel.font = UIFont.boldSystemFont(ofSize: 15)
         bodyLabel.textColor = .white
         bodyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -53,4 +44,5 @@ class FeedViewController: UIViewController {
             bodyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
         ])
     }
+
 }

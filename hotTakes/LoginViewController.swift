@@ -8,7 +8,6 @@
 /**
  Login view
  Todo:
-    1. Asthetic upgrades (i.e. logo, colors)
     2. Network code for login
     3. Input validation
 */
@@ -18,45 +17,117 @@ import UIKit
 class LoginViewController: UIViewController {
     
     var titleLabel:  UILabel!
+    var titleFlame: UIImageView!
+    var fillerTextTop: UILabel!
+    var fillerTextBottom: UILabel!
+    var splashImage: UIImageView!
+    
+    var usernameBox: UIView!
+    var usernameLabel: UILabel!
     var usernameTextField: UITextField!
+    
+    var passwordBox: UIView!
+    var passwordLabel: UILabel!
     var passwordTextField: UITextField!
+    
     var loginButton: UIButton!
     var signupButton: UIButton!
     
-    var feedViewController : FeedViewController!
+    var containerViewController : ContainerViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         
         titleLabel = UILabel()
-        titleLabel.text = "Hot Takes"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 32)
+        titleLabel.text = "HOT OR COLD?"
+        titleLabel.font = UIFont(name: "Roboto-Bold", size: 35)
+        titleLabel.textColor = .white
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         
+        titleFlame = UIImageView()
+        titleFlame.image = UIImage(named: "flame")
+        titleFlame.contentMode = .scaleAspectFit
+        titleFlame.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleFlame)
+        
+        fillerTextTop = UILabel()
+        fillerTextTop.text = "Get ready to smack your forehead after the greatest eureka moment."
+        fillerTextTop.font = UIFont(name: "Roboto-Bold", size: 20)
+        fillerTextTop.textColor = UIColor(red: 0.925, green: 0.302, blue: 0.341, alpha: 1)
+        fillerTextTop.translatesAutoresizingMaskIntoConstraints = false
+        fillerTextTop.numberOfLines = 0
+        fillerTextTop.lineBreakMode = .byWordWrapping
+        view.addSubview(fillerTextTop)
+        
+        fillerTextBottom = UILabel()
+        fillerTextBottom.text = "Welcome back, debater. Please log in to activate."
+        fillerTextBottom.font = UIFont(name: "Roboto-Bold", size: 13)
+        fillerTextBottom.textColor = .gray
+        fillerTextBottom.translatesAutoresizingMaskIntoConstraints = false
+        fillerTextBottom.numberOfLines = 0
+        fillerTextBottom.lineBreakMode = .byWordWrapping
+        view.addSubview(fillerTextBottom)
+        
+        splashImage = UIImageView()
+        let img = UIImage(named: "login_splash")
+        splashImage.image = img
+        splashImage.backgroundColor = .white
+        splashImage.contentMode = .scaleAspectFit
+        splashImage.translatesAutoresizingMaskIntoConstraints = false
+        splashImage.addAspectRatioConstraint(image: img)
+        view.addSubview(splashImage)
+        
+        usernameBox = UIView()
+        usernameBox.layer.borderWidth = 0.5
+        usernameBox.layer.borderColor = UIColor.white.cgColor
+        
+        usernameLabel = UILabel()
+        usernameLabel.text = "Hot takes handle"
+        usernameLabel.font = UIFont(name: "Roboto-Bold", size: 15)
+        usernameLabel.textColor = .white
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        usernameBox.addSubview(usernameLabel)
+        
         usernameTextField = UITextField()
-        usernameTextField.placeholder = "Username"
-        usernameTextField.font = UIFont.boldSystemFont(ofSize: 24)
-        usernameTextField.textColor = .black
+        usernameTextField.attributedPlaceholder = NSAttributedString(string:"Enter your username", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.925, green: 0.302, blue: 0.341, alpha: 0.5)])
+        usernameTextField.font = UIFont(name: "Roboto-Regular", size: 15)
+        usernameTextField.textColor = UIColor(red: 0.925, green: 0.302, blue: 0.341, alpha: 1)
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(usernameTextField)
+        usernameBox.addSubview(usernameTextField)
+        
+        usernameBox.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(usernameBox)
+        
+        passwordBox = UIView()
+        passwordBox.layer.borderWidth = 0.5
+        passwordBox.layer.borderColor = UIColor.white.cgColor
+        
+        passwordLabel = UILabel()
+        passwordLabel.text = "Password"
+        passwordLabel.font = UIFont(name: "Roboto-Bold", size: 15)
+        passwordLabel.textColor = .white
+        passwordLabel.translatesAutoresizingMaskIntoConstraints = false
+        passwordBox.addSubview(passwordLabel)
         
         passwordTextField = UITextField()
-        passwordTextField.placeholder = "Password"
-        passwordTextField.font = UIFont.boldSystemFont(ofSize: 24)
-        passwordTextField.textColor = .black
+        passwordTextField.attributedPlaceholder = NSAttributedString(string:"Enter your password", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.925, green: 0.302, blue: 0.341, alpha: 0.5)])
+        passwordTextField.font = UIFont(name: "Roboto-Regular", size: 15)
+        passwordTextField.textColor = UIColor(red: 0.925, green: 0.302, blue: 0.341, alpha: 1)
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(passwordTextField)
+        passwordBox.addSubview(passwordTextField)
+        
+        passwordBox.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(passwordBox)
         
         loginButton = UIButton()
         loginButton.setTitle("Login", for: .normal)
         loginButton.setTitleColor(.white, for: .normal)
-        loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        loginButton.backgroundColor = .red
-        loginButton.layer.borderWidth = 3
-        loginButton.layer.borderColor = UIColor.red.cgColor
+        loginButton.titleLabel?.font = UIFont(name: "Roboto-Bold", size: 18)
+        loginButton.backgroundColor = UIColor(red: 0.925, green: 0.302, blue: 0.341, alpha: 1)
+        loginButton.layer.cornerRadius = 5
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         view.addSubview(loginButton)
@@ -64,10 +135,10 @@ class LoginViewController: UIViewController {
         signupButton = UIButton()
         signupButton.setTitle("Sign Up", for: .normal)
         signupButton.setTitleColor(.white, for: .normal)
-        signupButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        signupButton.backgroundColor = .blue
-        signupButton.layer.borderWidth = 3
-        signupButton.layer.borderColor = UIColor.blue.cgColor
+        signupButton.titleLabel?.font = UIFont(name: "Roboto-Bold", size: 18)
+        signupButton.layer.borderWidth = 0.5
+        signupButton.layer.borderColor = UIColor.white.cgColor
+        signupButton.layer.cornerRadius = 5
         signupButton.translatesAutoresizingMaskIntoConstraints = false
         signupButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
         view.addSubview(signupButton)
@@ -76,52 +147,125 @@ class LoginViewController: UIViewController {
         
         setupConstraints()
         
-        feedViewController = FeedViewController()
-        
+        containerViewController = ContainerViewController()
     }
 
     func setupConstraints(){
         NSLayoutConstraint.activate([
-            usernameTextField.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -5),
-            usernameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30)
-            
+            titleFlame.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            titleFlame.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            titleFlame.heightAnchor.constraint(equalToConstant: 50),
+            titleFlame.widthAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([
-            passwordTextField.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 5),
-            passwordTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30)
-            
+            titleLabel.bottomAnchor.constraint(equalTo: titleFlame.bottomAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: titleFlame.trailingAnchor, constant: 10)
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.bottomAnchor.constraint(equalTo: usernameTextField.topAnchor, constant: -10),
-            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30)
-            
+            fillerTextTop.topAnchor.constraint(equalTo: titleFlame.bottomAnchor, constant: 40),
+            fillerTextTop.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            fillerTextTop.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
-            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            loginButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -15),
-            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
-            loginButton.heightAnchor.constraint(equalToConstant: 30)
+            fillerTextBottom.topAnchor.constraint(equalTo: fillerTextTop.bottomAnchor, constant: 20),
+            fillerTextBottom.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            fillerTextBottom.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
-            signupButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 15),
-            signupButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            signupButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
-            signupButton.heightAnchor.constraint(equalToConstant: 30)
+            splashImage.topAnchor.constraint(equalTo: fillerTextBottom.bottomAnchor, constant: 20),
+            splashImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            splashImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        
+        NSLayoutConstraint.activate([
+            usernameBox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            usernameBox.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            usernameBox.topAnchor.constraint(equalTo: splashImage.bottomAnchor, constant: 20),
+            usernameBox.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        NSLayoutConstraint.activate([
+            usernameLabel.leadingAnchor.constraint(equalTo: usernameBox.leadingAnchor, constant: 15),
+            usernameLabel.topAnchor.constraint(equalTo: usernameBox.topAnchor, constant: 10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            usernameTextField.leadingAnchor.constraint(equalTo: usernameBox.leadingAnchor, constant: 15),
+            usernameTextField.trailingAnchor.constraint(equalTo: usernameBox.trailingAnchor, constant: -15),
+            usernameTextField.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 2)
+        ])
+        
+        NSLayoutConstraint.activate([
+            passwordBox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            passwordBox.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            passwordBox.topAnchor.constraint(equalTo: usernameBox.bottomAnchor),
+            passwordBox.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        NSLayoutConstraint.activate([
+            passwordLabel.leadingAnchor.constraint(equalTo: passwordBox.leadingAnchor, constant: 15),
+            passwordLabel.topAnchor.constraint(equalTo: passwordBox.topAnchor, constant: 10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            passwordTextField.leadingAnchor.constraint(equalTo: passwordBox.leadingAnchor, constant: 15),
+            passwordTextField.trailingAnchor.constraint(equalTo: passwordBox.trailingAnchor, constant: -15),
+            passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 2)
+        ])
+        
+        NSLayoutConstraint.activate([
+            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            loginButton.widthAnchor.constraint(equalToConstant: 150),
+            loginButton.topAnchor.constraint(equalTo: passwordBox.bottomAnchor, constant: 20),
+            loginButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        NSLayoutConstraint.activate([
+            signupButton.leadingAnchor.constraint(equalTo: loginButton.trailingAnchor, constant: 15),
+            signupButton.widthAnchor.constraint(equalToConstant: 150),
+            signupButton.topAnchor.constraint(equalTo: passwordBox.bottomAnchor, constant: 20),
+            signupButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
     @objc func loginButtonTapped(){
         //INSERT LOGIN CODE
-        navigationController?.pushViewController(feedViewController, animated: true)
+        navigationController?.pushViewController(containerViewController, animated: true)
     }
     
     @objc func signupButtonTapped(){
         //INSERT LOGIN CODE
-        navigationController?.pushViewController(feedViewController, animated: true)
+        navigationController?.pushViewController(containerViewController, animated: true)
     }
 
+}
+
+extension UIImageView {
+    
+    func addAspectRatioConstraint(image: UIImage?) {
+        
+        if let image = image {
+            removeAspectRatioConstraint()
+            let aspectRatio = image.size.width / image.size.height
+            let constraint = NSLayoutConstraint(item: self, attribute: .width,
+                                                relatedBy: .equal,
+                                                toItem: self, attribute: .height,
+                                                multiplier: aspectRatio, constant: 0.0)
+            addConstraint(constraint)
+        }
+    }
+    
+    
+    func removeAspectRatioConstraint() {
+        for constraint in self.constraints {
+            if (constraint.firstItem as? UIImageView) == self,
+               (constraint.secondItem as? UIImageView) == self {
+                removeConstraint(constraint)
+            }
+        }
+    }
 }

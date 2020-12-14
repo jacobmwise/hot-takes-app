@@ -6,5 +6,6 @@ target 'hotTakes' do
   use_frameworks!
 
   # Pods for hotTakes
+  pod 'Alamofire'
   pod "Koloda"
 end

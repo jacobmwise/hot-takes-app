@@ -1,20 +1,24 @@
 PODS:
+  - Alamofire (5.4.0)
   - Koloda (5.0.1):
     - pop (~> 1.0)
   - pop (1.0.12)
 
 DEPENDENCIES:
+  - Alamofire
   - Koloda
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Koloda
     - pop
 
 SPEC CHECKSUMS:
+  Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
   Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
 
-PODFILE CHECKSUM: 47daebd6f2698c447a83a59f45ac7e0cffdeb730
+PODFILE CHECKSUM: 6494891e92d83a28dac03fb8fffb5f4da0beed0a
 
 COCOAPODS: 1.10.0

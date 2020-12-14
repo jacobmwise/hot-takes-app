@@ -5,6 +5,16 @@
 //  Created by Michael Crum on 12/14/20.
 //
 
+struct GenericResponse<T: Codable>: Codable{
+    var success: Bool
+    var data: T
+}
+
+struct ErrorResponse: Codable{
+    var success: Bool
+    var error: String
+}
+
 //    Sign Up
 //    /api/signup/ [POST]
 //    Creates a user with the given login information
@@ -29,6 +39,8 @@ struct AuthResponse: Codable {
     var session_token: String
     var session_expiration: String
     var update_token: String
+    var success: Bool?
+    var error: String?
 }
     
     

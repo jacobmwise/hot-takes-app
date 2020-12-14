@@ -116,16 +116,16 @@ def secret_message():
 def get_users():
     return success_response( [ u.serialize() for u in User.query.all() ] )
 
-# @app.route("/api/users/", methods=["POST"])
-# def create_user():
-#     body = json.loads(request.data)
-#     username = body.get("username")
-#     if username is None:
-#         return failure_response("Must provide a usernam")
-#     new_user = User(username=body.get("username"))
-#     db.session.add(new_user)
-#     db.session.commit()
-#     return success_response(new_user.serialize(), 201)
+ @app.route("/api/users/", methods=["POST"])
+ def create_user():
+     body = json.loads(request.data)
+     username = body.get("username")
+     if username is None:
+         return failure_response("Must provide a usernam")
+     new_user = User(username=body.get("username"))
+     db.session.add(new_user)
+     db.session.commit()
+     return success_response(new_user.serialize(), 201)
 
 @app.route("/api/users/<int:user_id>/", methods=["DELETE"])
 def delete_user(user_id):

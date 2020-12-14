@@ -139,6 +139,9 @@ def delete_user(user_id):
 @app.route("/api/users/<int:user_id>/profile_picture/", methods=["POST"])
 def upload_picture(user_id) :
     #TODO verify that the user is the one updating the profile picture
+    user = User.query.filter_by(id=user_id).first()
+    if user is None:
+        return failure_response("User not found")
     body = json.loads(request.data)
     image_data = body.get("image_data")
     if (image_data is None) :
@@ -188,11 +191,13 @@ def vote(user_id, take_id):
     take = Take.query.filter_by(id=take_id).first()
     if take is None:
         return failure_response("Take not found")
+    if user_id == take.user_id:
+        return failure_response("User cannot vote on their own take")
     body = json.loads(request.data)
     value = body.get("value")
     if value is None:
         return failure_response("User must provide a vote value")
-    new_vote = Vote(value=body.get("value"))
+    new_vote = Vote(value=body.get("value"), take=take)
     db.session.add(new_vote)
     take.votes.append(new_vote)
     user.voted.append(new_vote)

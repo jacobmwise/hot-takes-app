@@ -120,9 +120,10 @@ def get_users():
 def create_user():
     body = json.loads(request.data)
     username = body.get("username")
-    if username is None:
+    password = body.get("password")
+    if username or password is None:
         return failure_response("Must provide a usernam")
-    new_user = User(username=body.get("username"))
+    new_user = User(username=username, password=password)
     db.session.add(new_user)
     db.session.commit()
     return success_response(new_user.serialize(), 201)

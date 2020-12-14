@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+      hot-takes:
+          image: jmwise/hot-takes
+          ports:
+              - "5000:5000"

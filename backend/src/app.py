@@ -4,6 +4,8 @@ import os
 from db import db, User, Take, Vote, Asset
 from flask import Flask, request
 import users_dao
+from sqlalchemy import func
+import random
 
 app = Flask(__name__)
 db_filename = "takes.db"
@@ -171,6 +173,20 @@ def create_user_take(user_id):
     user.takes.append(new_take)
     db.session.commit()
     return success_response(new_take.serialize())
+
+@app.route("/api/takes/")
+def get_takes():
+    length = Take.query(func.count(Take.id)).scalar()
+    if(length < 10) :
+        takes = Take.query.all()
+    else :
+        randoms = random.sample(range(length), 10)
+        for r in randoms :
+            takes = Take.query.filter_by(id=r).first()
+    if (takes is None) :
+        return failure_response("No Takes found!")
+    return success_response( [ t.serialize_with_votes() for t in takes ] )
+
 
 @app.route("/api/users/<int:user_id>/takes/")
 def get_user_takes(user_id):

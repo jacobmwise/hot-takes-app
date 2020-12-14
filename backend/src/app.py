@@ -138,11 +138,14 @@ def delete_user(user_id):
 
 @app.route("/api/users/<int:user_id>/profile_picture/", methods=["POST"])
 def upload_picture(user_id) :
-    #TODO verify that the user is the one updating the profile picture
-    user = User.query.filter_by(id=user_id).first()
-    if user is None:
-        return failure_response("User not found")
     body = json.loads(request.data)
+    username = body.get("username")
+    password = body.get("password")
+    if username is None or password is None:
+        return failure_response("Invalid username or password")
+    was_successful, user = users_dao.verify_credentials(username, password)
+    if not was_successful:
+        return failure_response("Incorrect username or password")
     image_data = body.get("image_data")
     if (image_data is None) :
         return failure_response("No base64 image")

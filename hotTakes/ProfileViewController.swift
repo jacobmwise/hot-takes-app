@@ -68,6 +68,8 @@ class ProfileViewController: UIViewController {
         takesButton.titleLabel?.font = UIFont(name: "Roboto-Regular", size: 18)
         votesButton = NavButton(title: "Votes")
         votesButton.widthMultiplier = 0.45
+        votesButton.setTitleColor(.black, for: .normal)
+        votesButton.titleLabel?.font = UIFont(name: "Roboto-Regular", size: 18)
         view.addSubview(takesButton)
         view.addSubview(votesButton)
         takesButton.setupConstraints()
@@ -118,6 +120,11 @@ class ProfileViewController: UIViewController {
         NSLayoutConstraint.activate([
             takesButton.topAnchor.constraint(equalTo: hotVotesDisplay.bottomAnchor, constant: 10),
             takesButton.centerXAnchor.constraint(equalTo: view.leftAnchor, constant: CGFloat(view.bounds.width / 4))
+        ])
+        
+        NSLayoutConstraint.activate([
+            votesButton.topAnchor.constraint(equalTo: hotVotesDisplay.bottomAnchor, constant: 10),
+            votesButton.centerXAnchor.constraint(equalTo: view.leftAnchor, constant: CGFloat(view.bounds.width * 3 / 4))
         ])
         
     }

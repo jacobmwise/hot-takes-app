@@ -24,7 +24,6 @@ class NetworkManager {
         ]
         let endpoint = "\(host)/signup/"
         AF.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
-            print(response.result)
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
@@ -60,7 +59,6 @@ class NetworkManager {
         ]
         let endpoint = "\(host)/login/"
         AF.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
-            print(response.result)
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
@@ -190,7 +188,13 @@ class NetworkManager {
                     completion(res)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                let jsonDecoder = JSONDecoder()
+                if let decode = try? jsonDecoder.decode(ErrorResponse.self, from: response.data!) {
+                    // Instructions: Use completion to handle response
+                    let err = decode.error
+                    print(err)
+                    
+                }
             }
         }
     }
@@ -201,20 +205,25 @@ class NetworkManager {
 //    Request data:  None
 //    Response data: {[List of all user’s takes. “Id” : (Integer), “text” : (string), “hot_count” : (Integer), “cold_count” : (Integer), “hot_portion” : (Integer), “cold_portion” : (Integer)]}
 
-    static func getUserTakes(user_id: Int, completion: @escaping (GetUserTakesResponse) -> Void) {
-        let parameters: [String: Any] = [:]
+    static func getUserTakes(user_id: Int, completion: @escaping ([Take]) -> Void) {
         let endpoint = "\(host)/users/\(user_id)/takes/"
-        AF.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
+        AF.request(endpoint, method: .get).validate().responseData { response in
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                if let decode = try? jsonDecoder.decode(GenericResponse<GetUserTakesResponse>.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<[Take]>.self, from: data) {
                     // Instructions: Use completion to handle response
                     let res = decode.data
                     completion(res)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                let jsonDecoder = JSONDecoder()
+                if let decode = try? jsonDecoder.decode(ErrorResponse.self, from: response.data!) {
+                    // Instructions: Use completion to handle response
+                    let err = decode.error
+                    print(err)
+                    
+                }
             }
         }
     }
@@ -227,19 +236,25 @@ class NetworkManager {
 //    “voted” : [List of all takes user has voted on. “Id” : (Integer), “text” : (string), “hot_count” : (Integer), “cold_count” : (Integer), “hot_portion” : (Integer), “cold_portion” : (Integer)]
 //    “profile_picture” : (string) }
 //
-    static func getUserVoted(user_id: Int, completion: @escaping (GetUserTakesResponse) -> Void) {
+    static func getUserVoted(user_id: Int, completion: @escaping ([Take]) -> Void) {
         let endpoint = "\(host)/users/\(user_id)/voted/"
         AF.request(endpoint, method: .get).validate().responseData { response in
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
-                if let decode = try? jsonDecoder.decode(GenericResponse<GetUserTakesResponse>.self, from: data) {
+                if let decode = try? jsonDecoder.decode(GenericResponse<[Take]>.self, from: data) {
                     // Instructions: Use completion to handle response
                     let res = decode.data
                     completion(res)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                let jsonDecoder = JSONDecoder()
+                if let decode = try? jsonDecoder.decode(ErrorResponse.self, from: response.data!) {
+                    // Instructions: Use completion to handle response
+                    let err = decode.error
+                    print(err)
+                    
+                }
             }
         }
     }
@@ -265,7 +280,13 @@ class NetworkManager {
                     completion(res)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                let jsonDecoder = JSONDecoder()
+                if let decode = try? jsonDecoder.decode(ErrorResponse.self, from: response.data!) {
+                    // Instructions: Use completion to handle response
+                    let err = decode.error
+                    print(err)
+                    
+                }
             }
         }
     }

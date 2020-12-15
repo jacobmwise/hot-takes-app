@@ -39,6 +39,7 @@ struct AuthResponse: Codable {
     var session_token: String
     var session_expiration: String
     var update_token: String
+    var id: Int?
     var success: Bool?
     var error: String?
 }
@@ -105,8 +106,9 @@ struct CreateTakeResponse: Codable {
 //    “voted” : [List of all takes user has voted on. “Id” : (Integer), “text” : (string), “hot_count” : (Integer), “cold_count” : (Integer), “hot_portion” : (Integer), “cold_portion” : (Integer)]
 //    “profile_picture” : (string) }
 //
+//    Response data: {[List of random takes “Id” : (Integer), “text” : (string), “hot_count” :     (Integer), “cold_count” : (Integer), “hot_portion” : (Integer), “cold_portion” : (Integer)]}
 
-struct UserTake: Codable{
+struct Take: Codable{
     var id: Int
     var text: String
     var hot_count: Int
@@ -116,8 +118,8 @@ struct UserTake: Codable{
     var profile_picture: String?
 }
 
-struct GetUserTakesResponse: Codable{
-    var takes: [UserTake]
+struct TakeCollectionResponse: Codable{
+    var takes: [Take]
 }
 //
 //    Vote

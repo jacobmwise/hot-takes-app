@@ -1,12 +1,7 @@
 {
   "images" : [
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "filename" : "share bar.png",
-=======
-      "filename" : "ice.png",
->>>>>>> 49b7f0347de66b5b3861f5c3b8a9d5c2a9bf0df8
+      "filename" : "snowflake.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

@@ -16,84 +16,63 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
-
+class FeedViewController: UIViewController, SwipeOutDelegate {
+    
     var takes = [Take]()
-    
-    var takeDisplay: TakeCard = {
-        let tc = TakeCard()
-        return tc
-    }()
-    
-    var buttonDisplay: ButtonsView = {
-        let buttons = ButtonsView()
-        return buttons
-    }()
+    var takeDisplay: TakeCard!
+    var buttonDisplay: ButtonsView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .black
-        view.addSubview(takeDisplay)
-        view.addSubview(buttonDisplay)
-        setupConstraints()
+        serveTake()
+        buttonDisplay = ButtonsView()
+        view.addSubview(self.buttonDisplay)
+        setupButtonConstraints()
     }
     
-    func setupConstraints(){
+    func setupTakeConstraints(){
         NSLayoutConstraint.activate([
             takeDisplay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             takeDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             takeDisplay.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             takeDisplay.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7)
         ])
-        
+    }
+    
+    func setupButtonConstraints(){
         NSLayoutConstraint.activate([
-            buttonDisplay.topAnchor.constraint(equalTo: takeDisplay.bottomAnchor, constant: 10),
-            buttonDisplay.widthAnchor.constraint(equalTo: takeDisplay.widthAnchor),
-            buttonDisplay.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
+            buttonDisplay.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            buttonDisplay.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            buttonDisplay.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10),
             buttonDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
-    @objc func swipeCard(sender: UIPanGestureRecognizer) {
-            sender.swipeView(takeDisplay)
-       }
+    func didSwipeOut(_ sender: TakeCard){
+        print("didSwipeOut Executed")
+        self.takeDisplay.removeFromSuperview()
+        self.buttonDisplay.didSwipeOut()
+        serveTake()
         
-        /*
-        while toServe == nil{
-            var votedOnTakes = [Take]()
-            var userTakes = [Take]()
-            var currentTake: Take
-            var equalsExisting = false;
-            
-            NetworkManager.getUserVoted(user_id: CurrentUserData.userId){takeCollection in
-                votedOnTakes = takeCollection
-            }
-            NetworkManager.getUserTakes(user_id: CurrentUserData.userId){takeCollection in
-                userTakes = takeCollection
-            }
-            
-            NetworkManager.getTakes(user_id: CurrentUserData.userId){takeCollection in
-                currentTake = takeCollection[0]
-            }
-            
-            for take in userTakes{
-                if(take.id == currentTake.id){
-                    equalsExisting = true;
-                }
-            }
-            
-            for take in votedOnTakes{
-                if(take.id == currentTake.id){
-                    equalsExisting = true;
-                }
-            }
-            
-            if !equalsExisting{
-                toServe = currentTake
-            }
-            
-        }*/
-        
+    }
     
+    func serveTake() {
+        NetworkManager.getTakes(user_id: CurrentUserData.userId){takeCollection in
+            let take: Take = takeCollection.randomElement()!
+            CurrentTake.coldVotes = take.cold_count
+            CurrentTake.hotVotes = take.hot_count
+            CurrentTake.takeText = take.text
+            CurrentTake.takeId = take.id
+            
+            self.takeDisplay = TakeCard()
+            self.takeDisplay.delegate = self
+            
+            self.takeDisplay.alpha = 0.0
+            self.view.addSubview(self.takeDisplay)
+            self.setupTakeConstraints()
+            
+            print(CurrentTake.takeText)
+        }
+    }
 }

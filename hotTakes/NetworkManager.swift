@@ -285,10 +285,41 @@ class NetworkManager {
                     // Instructions: Use completion to handle response
                     let err = decode.error
                     print(err)
+                }
+            }
+        }
+    }
+//      Get Takes
+//      /api/<int: user_id>/takes/ [GET]
+//      Gets 20 (or fewer) random takes
+//      Does not filter by takes that the user has already voted on
+//      Request data:  None
+//      Response data: {[List of random takes “Id” : (Integer), “text” : (string), “hot_count” : (Integer), “cold_count” : (Integer), “hot_portion” : (Integer
+//      “cold_portion” : (Integer)]}
+
+    
+    static func getTakes(user_id: Int, completion: @escaping ([Take]) -> Void) {
+        let endpoint = "\(host)/\(user_id)/takes/"
+        AF.request(endpoint, method: .get).validate().responseData { response in
+            switch response.result {
+            case .success(let data):
+                let jsonDecoder = JSONDecoder()
+                if let decode = try? jsonDecoder.decode(GenericResponse<[Take]>.self, from: data) {
+                    // Instructions: Use completion to handle response
+                    let res = decode.data
+                    completion(res)
+                }
+            case .failure(let error):
+                let jsonDecoder = JSONDecoder()
+                if let decode = try? jsonDecoder.decode(ErrorResponse.self, from: response.data!) {
+                    // Instructions: Use completion to handle response
+                    let err = decode.error
+                    print(err)
                     
                 }
             }
         }
     }
+
     
 }

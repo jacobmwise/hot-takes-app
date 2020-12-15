@@ -23,6 +23,7 @@
 		FF40A00B257DADD700ED2DE3 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF40A00A257DADD700ED2DE3 /* NewPostViewController.swift */; };
 		FF4242682588392F000B2632 /* TakeCollectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4242672588392F000B2632 /* TakeCollectionTableViewController.swift */; };
 		FF42426C25883C61000B2632 /* TakeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF42426B25883C61000B2632 /* TakeTableViewCell.swift */; };
+		FF42426F25886083000B2632 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF42426E25886083000B2632 /* ImagePickerViewController.swift */; };
 		FF5D1FD0258731B900848B5A /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF5D1FCF258731B900848B5A /* Roboto-Regular.ttf */; };
 		FF5D1FDB258765DC00848B5A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5D1FDA258765DC00848B5A /* ContainerViewController.swift */; };
 		FF5D1FDF258766B600848B5A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5D1FDE258766B600848B5A /* ProfileViewController.swift */; };
@@ -54,6 +55,7 @@
 		FF40A00A257DADD700ED2DE3 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		FF4242672588392F000B2632 /* TakeCollectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeCollectionTableViewController.swift; sourceTree = "<group>"; };
 		FF42426B25883C61000B2632 /* TakeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeTableViewCell.swift; sourceTree = "<group>"; };
+		FF42426E25886083000B2632 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		FF5D1FCF258731B900848B5A /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		FF5D1FDA258765DC00848B5A /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		FF5D1FDE258766B600848B5A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -119,20 +121,20 @@
 				FF3A3C1B257D8F610039643F /* SceneDelegate.swift */,
 				FF3A3C1D257D8F610039643F /* LoginViewController.swift */,
 				FFAFD11D2588060800D98CE1 /* CurrentUserData.swift */,
-				FF5D1FDE258766B600848B5A /* ProfileViewController.swift */,
 				FF4242672588392F000B2632 /* TakeCollectionTableViewController.swift */,
+				FF5D1FDE258766B600848B5A /* ProfileViewController.swift */,
+				FF40A001257D99E100ED2DE3 /* FeedViewController.swift */,
+				49608FA125884394007A8C22 /* TakeCard.swift */,
 				FF42426B25883C61000B2632 /* TakeTableViewCell.swift */,
+				FF42426E25886083000B2632 /* ImagePickerViewController.swift */,
 				FF5D1FDA258765DC00848B5A /* ContainerViewController.swift */,
 				FF5D1FE1258768A800848B5A /* HeaderViewController.swift */,
 				FF40A00A257DADD700ED2DE3 /* NewPostViewController.swift */,
-				FF40A001257D99E100ED2DE3 /* FeedViewController.swift */,
-				49608FB4258859D6007A8C22 /* Swipeable.swift */,
-				49608FA125884394007A8C22 /* TakeCard.swift */,
-				49608FAD258850F6007A8C22 /* ButtonFactory.swift */,
 				49608FB125885360007A8C22 /* ButtonsView.swift */,
+				49608FB4258859D6007A8C22 /* Swipeable.swift */,
+				49608FAD258850F6007A8C22 /* ButtonFactory.swift */,
 				49608F88258827D4007A8C22 /* LabelFactory.swift */,
 				49608F9A25884315007A8C22 /* BaseView.swift */,
-				FF40A004257DA7BC00ED2DE3 /* Take.swift */,
 				FF5D1FE5258788E600848B5A /* NetworkManager.swift */,
 				FF5D1FED25878C5400848B5A /* NetworkResponses.swift */,
 				FF3A3C22257D8F620039643F /* Assets.xcassets */,
@@ -274,6 +276,7 @@
 				FF3A3C1A257D8F610039643F /* AppDelegate.swift in Sources */,
 				FFAFD11E2588060800D98CE1 /* CurrentUserData.swift in Sources */,
 				FF40A00B257DADD700ED2DE3 /* NewPostViewController.swift in Sources */,
+				FF42426F25886083000B2632 /* ImagePickerViewController.swift in Sources */,
 				FF40A002257D99E100ED2DE3 /* FeedViewController.swift in Sources */,
 				49608FA225884394007A8C22 /* TakeCard.swift in Sources */,
 				49608FB225885360007A8C22 /* ButtonsView.swift in Sources */,

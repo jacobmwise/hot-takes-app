@@ -18,9 +18,10 @@ import UIKit
 
 class FeedViewController: UIViewController {
 
+    var takes = [Take]()
+    
     var takeDisplay: TakeCard = {
         let tc = TakeCard()
-        tc.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(swipeCard(sender:))))
         return tc
     }()
     
@@ -57,4 +58,42 @@ class FeedViewController: UIViewController {
     @objc func swipeCard(sender: UIPanGestureRecognizer) {
             sender.swipeView(takeDisplay)
        }
+        
+        /*
+        while toServe == nil{
+            var votedOnTakes = [Take]()
+            var userTakes = [Take]()
+            var currentTake: Take
+            var equalsExisting = false;
+            
+            NetworkManager.getUserVoted(user_id: CurrentUserData.userId){takeCollection in
+                votedOnTakes = takeCollection
+            }
+            NetworkManager.getUserTakes(user_id: CurrentUserData.userId){takeCollection in
+                userTakes = takeCollection
+            }
+            
+            NetworkManager.getTakes(user_id: CurrentUserData.userId){takeCollection in
+                currentTake = takeCollection[0]
+            }
+            
+            for take in userTakes{
+                if(take.id == currentTake.id){
+                    equalsExisting = true;
+                }
+            }
+            
+            for take in votedOnTakes{
+                if(take.id == currentTake.id){
+                    equalsExisting = true;
+                }
+            }
+            
+            if !equalsExisting{
+                toServe = currentTake
+            }
+            
+        }*/
+        
+    
 }

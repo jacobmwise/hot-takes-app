@@ -54,6 +54,7 @@ def signup():
         return failure_response("User already exists")
 
     return success_response({
+        "id": user.id,
         "session_token": user.session_token,
         "session_expiration": str(user.session_expiration),
         "update_token": user.update_token,
@@ -75,6 +76,7 @@ def login():
 
     
     return success_response({
+        "id": user.id,
         "session_token": user.session_token,
         "session_expiration": str(user.session_expiration),
         "update_token": user.update_token,
@@ -94,6 +96,7 @@ def update_session():
         # return json.dumps({"error": f"Invalid update token: {str(e)}"})
 
     return success_response({
+        "id": user.id,
         "session_token": user.session_token,
         "session_expiration": str(user.session_expiration),
         "update_token": user.update_token,
@@ -118,17 +121,17 @@ def secret_message():
 def get_users():
     return success_response( [ u.serialize() for u in User.query.all() ] )
 
-@app.route("/api/users/", methods=["POST"])
-def create_user():
-    body = json.loads(request.data)
-    username = body.get("username")
-    password = body.get("password")
-    if username or password is None:
-        return failure_response("Must provide a usernam")
-    new_user = User(username=username, password=password)
-    db.session.add(new_user)
-    db.session.commit()
-    return success_response(new_user.serialize(), 201)
+# @app.route("/api/users/", methods=["POST"])
+# def create_user():
+#     body = json.loads(request.data)
+#     username = body.get("username")
+#     password = body.get("password")
+#     if username or password is None:
+#         return failure_response("Must provide a usernam")
+#     new_user = User(username=username, password=password)
+#     db.session.add(new_user)
+#     db.session.commit()
+#     return success_response(new_user.serialize(), 201)
 
 @app.route("/api/users/<int:user_id>/", methods=["DELETE"])
 def delete_user(user_id):
@@ -174,7 +177,7 @@ def create_user_take(user_id):
     db.session.commit()
     return success_response(new_take.serialize())
 
-@app.route("/api/<int: user_id>/takes/")
+@app.route("/api/<int:user_id>/takes/")
 def get_takes(user_id):
     length = db.session.query(func.count(Take.id)).scalar()
     takes = []
@@ -184,10 +187,15 @@ def get_takes(user_id):
         randoms = random.sample(range(length), 20)
         for r in randoms :
             takes.append(Take.query.filter(Take.id==r, Take.user_id!= user_id).first())
-    if (not takes) :
-        return failure_response("No Takes found!")
+    # if (not takes) :
+    #     return failure_response("No Takes found!")
+    for t in takes:
+        for v in t.votes:
+            if v.user_id == user_id:
+                takes.remove(t)
+    if not takes:
+        return failure_response("No takes found!")
     return success_response( [ t.serialize_with_votes() for t in takes ] )
-
 
 @app.route("/api/users/<int:user_id>/takes/")
 def get_user_takes(user_id):
@@ -214,6 +222,9 @@ def vote(user_id, take_id):
         return failure_response("Take not found")
     if user_id == take.user_id:
         return failure_response("User cannot vote on their own take")
+    for vote in Vote.query.filter_by(user_id=user_id).all():
+        if vote.take_id == take_id:
+            return failure_response("User already voted")
     body = json.loads(request.data)
     value = body.get("value")
     if value is None:

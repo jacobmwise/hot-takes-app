@@ -88,8 +88,12 @@ class ProfileViewController: UIViewController {
         setupConstraints()
         
         likedTakesTableView = TakeCollectionTableViewController()
+        likedTakesTableView.postDelegate = self
+        likedTakesTableView.voteDelegate = self
         likedTakesTableView.type = .liked
         ownTakesTableView = TakeCollectionTableViewController()
+        ownTakesTableView.postDelegate = self
+        ownTakesTableView.voteDelegate = self
         addChild(ownTakesTableView)
         ownTakesTableView.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(ownTakesTableView.view)
@@ -231,5 +235,18 @@ class StatDisplay: UIView{
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ProfileViewController: voteCountDelegate{
+    func takeVoteCount(coldCount: Int, hotCount: Int) {
+        coldVotesDisplay.count.text = String(coldCount)
+        hotVotesDisplay.count.text = String(hotCount)
+    }
+}
+
+extension ProfileViewController: postCountDelegate{
+    func takePostCount(postCount: Int) {
+        takeNumberDisplay.count.text = String(postCount)
     }
 }

@@ -11,11 +11,22 @@ enum TableType{
     case own, liked
 }
 
+protocol voteCountDelegate: class{
+    func takeVoteCount(coldCount: Int, hotCount: Int)
+}
+
+protocol postCountDelegate: class {
+    func takePostCount(postCount: Int)
+}
+
 class TakeCollectionTableViewController: UITableViewController {
     
     private let takeCellReuseId = "takeCellReuseId"
     var takes = [Take]()
     var type: TableType = .own
+    
+    var voteDelegate: voteCountDelegate?
+    var postDelegate: postCountDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +55,8 @@ class TakeCollectionTableViewController: UITableViewController {
         NetworkManager.getUserTakes(user_id: CurrentUserData.userId){takeCollection in
             self.takes = takeCollection
             
+            self.postDelegate?.takePostCount(postCount: self.takes.count)
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -53,6 +66,16 @@ class TakeCollectionTableViewController: UITableViewController {
     func getLikedTakes() {
         NetworkManager.getUserVoted(user_id: CurrentUserData.userId){takeCollection in
             self.takes = takeCollection
+            
+            var coldTotal = 0
+            var hotTotal = 0
+            
+            for t in self.takes {
+                coldTotal += t.cold_count
+                hotTotal += t.hot_count
+            }
+            
+            self.voteDelegate?.takeVoteCount(coldCount: coldTotal, hotCount: hotTotal)
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -68,7 +91,7 @@ class TakeCollectionTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 150
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

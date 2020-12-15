@@ -285,7 +285,6 @@ class NetworkManager {
                     // Instructions: Use completion to handle response
                     let err = decode.error
                     print(err)
-                    
                 }
             }
         }

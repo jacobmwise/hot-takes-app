@@ -13,5 +13,5 @@ struct CurrentUserData{
     static var update_token: String = ""
     static var username: String = "Placeholder Username"
     static var profilePicture: String = ""
-    static var userId: Int = 0
+    static var userId: Int = 3
 }

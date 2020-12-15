@@ -16,6 +16,7 @@
 		FF40A002257D99E100ED2DE3 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF40A001257D99E100ED2DE3 /* FeedViewController.swift */; };
 		FF40A00B257DADD700ED2DE3 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF40A00A257DADD700ED2DE3 /* NewPostViewController.swift */; };
 		FF4242682588392F000B2632 /* TakeCollectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4242672588392F000B2632 /* TakeCollectionTableViewController.swift */; };
+		FF42426C25883C61000B2632 /* TakeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF42426B25883C61000B2632 /* TakeTableViewCell.swift */; };
 		FF5D1FD0258731B900848B5A /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF5D1FCF258731B900848B5A /* Roboto-Regular.ttf */; };
 		FF5D1FDB258765DC00848B5A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5D1FDA258765DC00848B5A /* ContainerViewController.swift */; };
 		FF5D1FDF258766B600848B5A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5D1FDE258766B600848B5A /* ProfileViewController.swift */; };
@@ -40,6 +41,7 @@
 		FF40A001257D99E100ED2DE3 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		FF40A00A257DADD700ED2DE3 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		FF4242672588392F000B2632 /* TakeCollectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeCollectionTableViewController.swift; sourceTree = "<group>"; };
+		FF42426B25883C61000B2632 /* TakeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeTableViewCell.swift; sourceTree = "<group>"; };
 		FF5D1FCF258731B900848B5A /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		FF5D1FDA258765DC00848B5A /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		FF5D1FDE258766B600848B5A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				FFAFD11D2588060800D98CE1 /* CurrentUserData.swift */,
 				FF5D1FDE258766B600848B5A /* ProfileViewController.swift */,
 				FF4242672588392F000B2632 /* TakeCollectionTableViewController.swift */,
+				FF42426B25883C61000B2632 /* TakeTableViewCell.swift */,
 				FF5D1FDA258765DC00848B5A /* ContainerViewController.swift */,
 				FF5D1FE1258768A800848B5A /* HeaderViewController.swift */,
 				FF40A00A257DADD700ED2DE3 /* NewPostViewController.swift */,
@@ -254,6 +257,7 @@
 				FF5D1FDF258766B600848B5A /* ProfileViewController.swift in Sources */,
 				FF5D1FE2258768A800848B5A /* HeaderViewController.swift in Sources */,
 				FF5D1FEE25878C5400848B5A /* NetworkResponses.swift in Sources */,
+				FF42426C25883C61000B2632 /* TakeTableViewCell.swift in Sources */,
 				FF3A3C1C257D8F610039643F /* SceneDelegate.swift in Sources */,
 				FF4242682588392F000B2632 /* TakeCollectionTableViewController.swift in Sources */,
 			);

@@ -258,8 +258,10 @@ class LoginViewController: UIViewController {
                     CurrentUserData.session_token = loginResponse.session_token
                     CurrentUserData.session_expiration = loginResponse.session_expiration
                     CurrentUserData.update_token = loginResponse.update_token
-                    CurrentUserData.userId = loginResponse.user_id!
+                    CurrentUserData.username = self.usernameTextField.text!
+                    CurrentUserData.userId = loginResponse.id!
                     self.showWarning(message: "Welcome")
+                    
                     self.navigationController?.pushViewController(self.containerViewController, animated: true)
                 }else if loginResponse.success ?? true == false {
                     self.showWarning(message: loginResponse.error!)
@@ -280,6 +282,8 @@ class LoginViewController: UIViewController {
                     CurrentUserData.session_token = signupResponse.session_token
                     CurrentUserData.session_expiration = signupResponse.session_expiration
                     CurrentUserData.update_token = signupResponse.update_token
+                    CurrentUserData.username = self.usernameTextField.text!
+                    CurrentUserData.userId = signupResponse.id!
                     self.showWarning(message: "Welcome")
                     self.navigationController?.pushViewController(self.containerViewController, animated: true)
                 }else if signupResponse.success ?? true == false {

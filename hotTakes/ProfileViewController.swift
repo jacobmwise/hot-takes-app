@@ -23,7 +23,14 @@ class ProfileViewController: UIViewController {
     var takesButton: NavButton!
     var votesButton: NavButton!
     
+    var likedTakesTableView: TakeCollectionTableViewController!
+    var ownTakesTableView: TakeCollectionTableViewController!
+    
     var pfpFraction: Float = 1/4
+    
+    var currentView: UIViewController!
+    
+    var mainViewConstraints: [NSLayoutConstraint]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,11 +82,50 @@ class ProfileViewController: UIViewController {
         takesButton.setupConstraints()
         votesButton.setupConstraints()
         votesButton.hideBorder()
+        votesButton.addTarget(self, action: #selector(votesPressed), for: .touchUpInside)
+        takesButton.addTarget(self, action: #selector(takesPressed), for: .touchUpInside)
         
         setupConstraints()
+        
+        likedTakesTableView = TakeCollectionTableViewController()
+        likedTakesTableView.type = .liked
+        ownTakesTableView = TakeCollectionTableViewController()
+        addChild(ownTakesTableView)
+        ownTakesTableView.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(ownTakesTableView.view)
+        ownTakesTableView.didMove(toParent: self)
+        mainViewConstraints = [
+            ownTakesTableView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            ownTakesTableView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ownTakesTableView.view.topAnchor.constraint(equalTo: takesButton.bottomAnchor),
+            ownTakesTableView.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        NSLayoutConstraint.activate(mainViewConstraints)
+        currentView = ownTakesTableView
+        
         takeNumberDisplay.setupConstraints()
         hotVotesDisplay.setupConstraints()
         coldVotesDisplay.setupConstraints()
+    }
+    
+    func presentScreen(cont: UIViewController){
+        currentView.willMove(toParent: nil)
+        NSLayoutConstraint.deactivate(mainViewConstraints)
+        currentView.view.removeFromSuperview()
+        currentView.removeFromParent()
+        
+        addChild(cont)
+        cont.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(cont.view)
+        cont.didMove(toParent: self)
+        mainViewConstraints = [
+            cont.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            cont.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            cont.view.topAnchor.constraint(equalTo: takesButton.bottomAnchor),
+            cont.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        NSLayoutConstraint.activate(mainViewConstraints)
+        currentView = cont
     }
     
     func setupConstraints(){
@@ -128,7 +174,18 @@ class ProfileViewController: UIViewController {
         ])
         
     }
+    
+    @objc func takesPressed(){
+        takesButton.showBorder()
+        votesButton.hideBorder()
+        presentScreen(cont: ownTakesTableView)
+    }
 
+    @objc func votesPressed(){
+        takesButton.hideBorder()
+        votesButton.showBorder()
+        presentScreen(cont: likedTakesTableView)
+    }
 }
 
 class StatDisplay: UIView{

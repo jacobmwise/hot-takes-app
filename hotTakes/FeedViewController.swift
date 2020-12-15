@@ -17,40 +17,44 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    var titleLabel: UILabel!
-    var bodyLabel: UILabel!
 
+    var takeDisplay: TakeCard = {
+        let tc = TakeCard()
+        tc.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(swipeCard(sender:))))
+        return tc
+    }()
+    
+    var buttonDisplay: ButtonsView = {
+        let buttons = ButtonsView()
+        return buttons
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .black
-        
-        titleLabel = UILabel()
-        titleLabel.text = "Feed page"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 32)
-        titleLabel.textColor = .white
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleLabel)
-        
-        bodyLabel = UILabel()
-        bodyLabel.text = "Complete feed page in this view controller"
-        bodyLabel.font = UIFont.boldSystemFont(ofSize: 15)
-        bodyLabel.textColor = .white
-        bodyLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bodyLabel)
-        
+        view.addSubview(takeDisplay)
+        view.addSubview(buttonDisplay)
         setupConstraints()
     }
     
     func setupConstraints(){
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
+            takeDisplay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            takeDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            takeDisplay.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            takeDisplay.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7)
         ])
         
         NSLayoutConstraint.activate([
-            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            bodyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
+            buttonDisplay.topAnchor.constraint(equalTo: takeDisplay.bottomAnchor, constant: 10),
+            buttonDisplay.widthAnchor.constraint(equalTo: takeDisplay.widthAnchor),
+            buttonDisplay.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
+            buttonDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
+    
+    @objc func swipeCard(sender: UIPanGestureRecognizer) {
+            sender.swipeView(takeDisplay)
+       }
 }

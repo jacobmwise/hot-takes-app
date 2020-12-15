@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49608F89258827D4007A8C22 /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49608F88258827D4007A8C22 /* LabelFactory.swift */; };
+		49608F9B25884315007A8C22 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49608F9A25884315007A8C22 /* BaseView.swift */; };
+		49608FA225884394007A8C22 /* TakeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49608FA125884394007A8C22 /* TakeCard.swift */; };
+		49608FAE258850F6007A8C22 /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49608FAD258850F6007A8C22 /* ButtonFactory.swift */; };
+		49608FB225885360007A8C22 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49608FB125885360007A8C22 /* ButtonsView.swift */; };
+		49608FB5258859D6007A8C22 /* Swipeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49608FB4258859D6007A8C22 /* Swipeable.swift */; };
 		707E773D9E35DCCAC75920C4 /* Pods_hotTakes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6FC22AD44CB5381F9CEBA0 /* Pods_hotTakes.framework */; };
 		FF3A3C1A257D8F610039643F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3A3C19257D8F610039643F /* AppDelegate.swift */; };
 		FF3A3C1C257D8F610039643F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3A3C1B257D8F610039643F /* SceneDelegate.swift */; };
@@ -28,6 +34,12 @@
 
 /* Begin PBXFileReference section */
 		3A6FC22AD44CB5381F9CEBA0 /* Pods_hotTakes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hotTakes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49608F88258827D4007A8C22 /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
+		49608F9A25884315007A8C22 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		49608FA125884394007A8C22 /* TakeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeCard.swift; sourceTree = "<group>"; };
+		49608FAD258850F6007A8C22 /* ButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
+		49608FB125885360007A8C22 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
+		49608FB4258859D6007A8C22 /* Swipeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swipeable.swift; sourceTree = "<group>"; };
 		713D9C25FDCF188BBD1B9CFA /* Pods-hotTakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hotTakes.release.xcconfig"; path = "Target Support Files/Pods-hotTakes/Pods-hotTakes.release.xcconfig"; sourceTree = "<group>"; };
 		E7623FAF6769690A706BECD5 /* Pods-hotTakes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hotTakes.debug.xcconfig"; path = "Target Support Files/Pods-hotTakes/Pods-hotTakes.debug.xcconfig"; sourceTree = "<group>"; };
 		FF3A3C16257D8F610039643F /* hotTakes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hotTakes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +122,12 @@
 				FF5D1FE1258768A800848B5A /* HeaderViewController.swift */,
 				FF40A00A257DADD700ED2DE3 /* NewPostViewController.swift */,
 				FF40A001257D99E100ED2DE3 /* FeedViewController.swift */,
+				49608FB4258859D6007A8C22 /* Swipeable.swift */,
+				49608FA125884394007A8C22 /* TakeCard.swift */,
+				49608FAD258850F6007A8C22 /* ButtonFactory.swift */,
+				49608FB125885360007A8C22 /* ButtonsView.swift */,
+				49608F88258827D4007A8C22 /* LabelFactory.swift */,
+				49608F9A25884315007A8C22 /* BaseView.swift */,
 				FF40A004257DA7BC00ED2DE3 /* Take.swift */,
 				FF5D1FE5258788E600848B5A /* NetworkManager.swift */,
 				FF5D1FED25878C5400848B5A /* NetworkResponses.swift */,
@@ -246,15 +264,21 @@
 			files = (
 				FF3A3C1E257D8F610039643F /* LoginViewController.swift in Sources */,
 				FF5D1FDB258765DC00848B5A /* ContainerViewController.swift in Sources */,
+				49608FAE258850F6007A8C22 /* ButtonFactory.swift in Sources */,
 				FF5D1FE6258788E600848B5A /* NetworkManager.swift in Sources */,
+				49608FB5258859D6007A8C22 /* Swipeable.swift in Sources */,
 				FF3A3C1A257D8F610039643F /* AppDelegate.swift in Sources */,
 				FFAFD11E2588060800D98CE1 /* CurrentUserData.swift in Sources */,
 				FF40A00B257DADD700ED2DE3 /* NewPostViewController.swift in Sources */,
 				FF40A002257D99E100ED2DE3 /* FeedViewController.swift in Sources */,
+				49608FA225884394007A8C22 /* TakeCard.swift in Sources */,
+				49608FB225885360007A8C22 /* ButtonsView.swift in Sources */,
 				FF5D1FDF258766B600848B5A /* ProfileViewController.swift in Sources */,
 				FF5D1FE2258768A800848B5A /* HeaderViewController.swift in Sources */,
 				FF40A005257DA7BC00ED2DE3 /* Take.swift in Sources */,
 				FF5D1FEE25878C5400848B5A /* NetworkResponses.swift in Sources */,
+				49608F9B25884315007A8C22 /* BaseView.swift in Sources */,
+				49608F89258827D4007A8C22 /* LabelFactory.swift in Sources */,
 				FF3A3C1C257D8F610039643F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

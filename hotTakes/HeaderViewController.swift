@@ -117,6 +117,7 @@ class HeaderViewController: UIViewController {
 
 class NavButton: UIButton {
     var border = UIView()
+    var widthMultiplier = 0.2
     
     required init(title: String){
         super.init(frame: .zero)
@@ -130,7 +131,7 @@ class NavButton: UIButton {
     
     func setupConstraints(){
         NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalTo: superview!.widthAnchor, multiplier: 0.2),
+            self.widthAnchor.constraint(equalTo: superview!.widthAnchor, multiplier: CGFloat(widthMultiplier)),
             self.heightAnchor.constraint(equalToConstant: 30)
         ])
     }

@@ -258,6 +258,7 @@ class LoginViewController: UIViewController {
                     CurrentUserData.session_token = loginResponse.session_token
                     CurrentUserData.session_expiration = loginResponse.session_expiration
                     CurrentUserData.update_token = loginResponse.update_token
+                    CurrentUserData.userId = loginResponse.user_id!
                     self.showWarning(message: "Welcome")
                     self.navigationController?.pushViewController(self.containerViewController, animated: true)
                 }else if loginResponse.success ?? true == false {

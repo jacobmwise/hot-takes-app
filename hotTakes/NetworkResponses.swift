@@ -39,6 +39,7 @@ struct AuthResponse: Codable {
     var session_token: String
     var session_expiration: String
     var update_token: String
+    var user_id: Int?
     var success: Bool?
     var error: String?
 }
